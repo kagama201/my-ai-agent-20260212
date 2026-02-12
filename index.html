@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Workspace</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body { background-color: #0b0f1a; color: #e2e8f0; font-family: 'Pretendard', sans-serif; overflow: hidden; }
+        .chat-area { height: 68vh; }
+        .task-area { height: 32vh; }
+        .glass { background: rgba(23, 30, 49, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
+        .user-bubble { border-top-right-radius: 2px; background: #2563eb; }
+        .progress-bar { height: 4px; border-radius: 2px; background: #1e293b; overflow: hidden; }
+        .progress-fill { height: 100%; background: #3b82f6; }
+        #drawer { transition: transform 0.3s ease-in-out; z-index: 100; }
+        .drawer-overlay { transition: opacity 0.3s ease-in-out; z-index: 90; }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden relative">
+    <div id="overlay" class="drawer-overlay fixed inset-0 bg-black/70 opacity-0 pointer-events-none" onclick="toggleDrawer()"></div>
+    <aside id="drawer" class="fixed top-0 left-0 h-full w-[280px] bg-[#0f172a] shadow-2xl -translate-x-full border-r border-white/10 p-6 flex flex-col">
+        <div class="flex items-center gap-3 mb-10 pt-4"><div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-black text-white">A</div><span class="font-bold text-lg text-white">AGENT OS</span></div>
+        <nav class="flex-grow space-y-9">
+            <button class="flex items-center gap-4 text-slate-400 hover:text-white transition-colors"><i class="fas fa-compass w-5"></i><span class="text-sm font-semibold">Data Navigator</span></button>
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 text-blue-500"><i class="fas fa-layer-group w-5"></i><span class="text-sm font-bold">Task Manager</span></div>
+                <div class="pl-9 space-y-4 text-[11px] text-slate-400">
+                    <div>• 강연 준비 <div class="w-full h-1 bg-slate-800 mt-1"><div class="bg-blue-600 h-full w-[5%]"></div></div></div>
+                    <div>• 회의 주관 <div class="w-full h-1 bg-slate-800 mt-1"><div class="bg-blue-600 h-full w-[75%]"></div></div></div>
+                </div>
+            </div>
+            <button class="flex items-center gap-4 text-slate-400 hover:text-white pt-6 border-t border-white/5 w-full"><i class="fas fa-cog w-5"></i><span class="text-sm font-semibold">설정</span></button>
+        </nav>
+    </aside>
+
+    <section class="chat-area flex flex-col p-5 overflow-y-auto border-b border-slate-800">
+        <header class="flex items-center justify-between mb-8 flex-shrink-0">
+            <button onclick="toggleDrawer()" class="w-10 h-10 -ml-2 text-slate-400 active:scale-90 transition-transform"><i class="fas fa-bars text-lg"></i></button>
+            <h1 class="text-[10px] font-black text-blue-500 tracking-[0.2em]">STRATEGIC WORKSPACE</h1>
+            <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+        </header>
+        <div class="space-y-6 flex-grow">
+            <div class="flex justify-end"><div class="user-bubble p-4 rounded-2xl max-w-[85%] text-sm text-white shadow-lg">상사에게 에이전트 서비스 강연 요청을 받았어. 무엇을 해야 할까?</div></div>
+            <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0 flex items-center justify-center text-[10px] font-bold text-white">AI</div>
+                <div class="glass p-4 rounded-2xl max-w-[85%] text-sm leading-relaxed">강연 성공을 위해 크게 **강연 자료 준비, 대상자 맞춤형 시나리오 설계, 기술 시연 점검**의 세 단계로 나누어 지원해 드릴 수 있습니다.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="task-area p-5 flex flex-col bg-[#070910] overflow-y-auto">
+        <h2 class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">Active Task Flow</h2>
+        <div class="space-y-3">
+            <a href="2depth.html" class="block active:scale-[0.97] transition-all"><div class="glass p-3.5 rounded-xl border-l-4 border-blue-500"><div class="flex justify-between items-center mb-2"><span class="text-[13px] font-bold">강연 준비</span><span class="text-blue-400 text-[10px] font-bold">5% 〉</span></div><div class="progress-bar"><div class="progress-fill" style="width: 5%;"></div></div></div></a>
+            <a href="2-2depth.html" class="block active:scale-[0.97] transition-all opacity-80"><div class="glass p-3.5 rounded-xl border-l-4 border-slate-500"><div class="flex justify-between items-center mb-2"><span class="text-[13px] font-medium">회의 주관</span><span class="text-slate-400 text-[10px] font-bold">75% 〉</span></div><div class="progress-bar"><div class="progress-fill bg-slate-500" style="width: 75%;"></div></div></div></a>
+            <a href="2-3depth.html" class="block active:scale-[0.97] transition-all opacity-80"><div class="glass p-3.5 rounded-xl border-l-4 border-emerald-500"><div class="flex justify-between items-center mb-2"><span class="text-[13px] font-medium text-emerald-300">제주 여행</span><span class="text-emerald-400 text-[10px] font-bold">Plan 〉</span></div><div class="progress-bar"><div class="progress-fill bg-emerald-500" style="width: 15%;"></div></div></div></a>
+        </div>
+    </section>
+
+    <script>
+        function toggleDrawer() {
+            const d = document.getElementById('drawer');
+            const o = document.getElementById('overlay');
+            d.classList.toggle('-translate-x-full');
+            o.classList.toggle('opacity-0');
+            o.classList.toggle('pointer-events-none');
+        }
+    </script>
+</body>
+</html>
